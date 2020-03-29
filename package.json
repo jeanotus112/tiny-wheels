@@ -1,0 +1,25 @@
+{
+  "name": "tiny-wheels",
+  "version": "1.0.0",
+  "description": "tiny-wheels is a set of components made by vanilla javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csdoker/tiny-wheels.git"
+  },
+  "keywords": [
+    "javascript",
+    "tiny",
+    "wheels",
+    "csdoker"
+  ],
+  "author": "csdoker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/csdoker/tiny-wheels/issues"
+  },
+  "homepage": "https://github.com/csdoker/tiny-wheels#readme"
+}
