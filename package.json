@@ -1,8 +1,8 @@
 {
   "name": "tiny-wheels",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "tiny-wheels is a set of components made by vanilla javascript",
-  "main": "dist/tiny-wheels.min.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
