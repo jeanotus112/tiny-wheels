@@ -1,3 +1,3 @@
-import Pager from './Pager/pager'
+import Tabs from './Tabs'
 
-export { Pager }
+export { Tabs }
