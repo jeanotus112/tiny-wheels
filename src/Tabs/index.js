@@ -17,11 +17,11 @@ class Tabs {
   }
   bindTabs () {
     this.$$tabItems.forEach($tab => {
-      $tab.onclick = () => {
+      $tab.addEventListener('click', () => {
         this.setTabItem($tab)
         this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
         this.setTabPanel($tab)
-      }
+      })
     })
   }
   setTabItem($tab) {
