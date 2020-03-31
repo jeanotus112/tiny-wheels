@@ -27,6 +27,7 @@ class Tabs {
   setTabs () {
     this.$$tabItems = this.$container.querySelectorAll('.tab-item')
     this.$tabLine = this.$container.querySelector('.tab-line')
+    this.setTabStatus()
     const tabIndex = this.getTabIndex()
     if (this.$$tabItems[tabIndex]) {
       const { offsetWidth, offsetLeft } = this.$$tabItems[tabIndex]
@@ -52,11 +53,21 @@ class Tabs {
   bindTabs () {
     this.$$tabItems.forEach($tab => {
       $tab.addEventListener('click', () => {
-        const index = [...this.$$tabItems].indexOf($tab)
-        this.setTabItem($tab)
-        this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
-        this.setTabPanel(this.$$tabPanels[index])
+        if (!$tab.classList.contains('disabled')) {
+          const index = [...this.$$tabItems].indexOf($tab)
+          this.setTabItem($tab)
+          this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
+          this.setTabPanel(this.$$tabPanels[index])
+        }
       })
+    })
+  }
+
+  setTabStatus () {
+    this.$$tabPanels.forEach(($panel, index) => {
+      if ($panel.dataset.key === this.$container.dataset.disabled) {
+        this.$$tabItems[index].classList.add('disabled')
+      }
     })
   }
 
