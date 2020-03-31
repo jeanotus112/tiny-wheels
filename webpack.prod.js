@@ -14,7 +14,11 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
     libraryTarget: 'umd',
-    library: 'TinyWheels'
+    library: {
+      root: 'TinyWheels',
+      amd: 'tiny-wheels',
+      commonjs: 'tiny-wheels'
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
