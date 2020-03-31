@@ -7,28 +7,30 @@
     line-height: 30px;
     font-weight: 500;
     border-bottom: 2px solid #ddd;
-  }
-  .tab-item {
-    margin-right: 30px;
-    cursor: pointer;
-    &.active {
-      color: #409eff;
+    .tab-item {
+      margin-right: 30px;
+      cursor: pointer;
+      &.active {
+        color: #409eff;
+      }
+    }
+    .tab-line {
+      position: absolute;
+      top: 100%;
+      transform: translateX(0);
+      height: 2px;
+      background: #409eff;
+      transition: all 0.3s;
     }
   }
-  .tab-line {
-    position: absolute;
-    top: 100%;
-    transform: translateX(0);
-    height: 2px;
-    background: #409eff;
-    transition: all 0.3s;
-  }
-  .tab-panel {
-    padding: 16px 0;
-    font-size: 14px;
-    display: none;
-    &.active {
-      display: block;
+  .tab-content {
+    .tab-panel {
+      padding: 16px 0;
+      font-size: 14px;
+      display: none;
+      &.active {
+        display: block;
+      }
     }
   }
 }
