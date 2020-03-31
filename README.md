@@ -1,4 +1,5 @@
 # tiny-wheels
+
 一套基于原生JavaScript开发的组件库，无依赖、体积小、简单易用
 
 <!-- ## 文档 -->
@@ -79,6 +80,12 @@ new Tabs(document.querySelector('.tabs'))
 - [ ] 单元测试
 
 持续施工中...
+
+## 说明
+
+> Done is better than perfect
+
+这是我很喜欢的一句话，所以本项目的开发原则也是如此，优先实现各个组件的基础功能，复杂功能的优先级会比较低
 
 ## 参考
 
