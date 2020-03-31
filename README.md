@@ -6,7 +6,7 @@
 
 <!-- 关于各个组件的详细使用方式可以查看本项目的文档： -->
 
-## 特性
+## 特点
 
 - 使用`ES6`最新语法编写，纯原生`JavaScript`代码，适合新手阅读
 - 无任何第三方依赖，源码非常精简，可以自由拓展组件功能
@@ -16,7 +16,7 @@
 
 - 模块化引入（推荐）
 
-> npm install tiny-wheels -D
+> npm install tiny-wheels -S
 
 ```javascript
 import { Tabs } from 'tiny-wheels'
@@ -83,11 +83,21 @@ new Tabs(document.querySelector('.tabs'))
 
 ## 说明
 
-> Done is better than perfect
+本项目的开发目的，主要是个人对于技术的学习、研究、总结，其次是探索使用原生JavaScript实现一些复杂组件的方法
 
-这是我很喜欢的一句话，所以本项目的开发原则也是如此，优先实现各个组件的基础功能，复杂功能的优先级会比较低
+> 由于现在还未完成每个组件的单元测试，无法确保组件的稳定性，所以暂时不推荐在生产环境使用
+
+——Done is better than perfect
+
+这是我很喜欢的一句话，所以本项目的开发原则也是如此，优先实现各个组件的基础功能，而复杂功能的优先级会比较低
+
+## 贡献
+
+如果你遇到什么问题，或者有好的建议，欢迎提 [Issues](https://github.com/csdoker/tiny-wheels/issues) 和 [Pull Request](https://github.com/csdoker/tiny-wheels/pulls)
 
 ## 参考
+
+本组件库参考了一些比较成熟的UI框架，包括但不限于外观、API设计、甚至源码实现，特此感谢这些开源社区的贡献者
 
 - [Element](https://element.eleme.cn/#/zh-CN)
 - [Ant Design](https://ant.design/)
