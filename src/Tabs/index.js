@@ -6,25 +6,41 @@ class Tabs {
     this.$$tabItems = $container.querySelectorAll('.tab-item')
     this.$$tabPanels = $container.querySelectorAll('.tab-panel')
     this.$tabLine = $container.querySelector('.tab-line')
-    this.init()
-    this.bind()
+    this.initTabs()
+    this.bindTabs()
   }
-  init () {
-    this.$tabLine.style.width = `${this.$$tabItems[0].offsetWidth}px`
+  initTabs () {
+    const { offsetWidth, offsetLeft } = this.$$tabItems[0]
+    this.setTabItem(this.$$tabItems[0])
+    this.setTabLine(offsetWidth, offsetLeft)
+    this.setTabPanel(this.$$tabItems[0])
   }
-  bind () {
+  bindTabs () {
     this.$$tabItems.forEach($tab => {
       $tab.onclick = () => {
-        const index = [...this.$$tabItems].indexOf($tab)
-        this.$$tabItems.forEach($tab => $tab.classList.remove('active'))
-        $tab.classList.add('active')
-        this.$tabLine.style.width = `${$tab.offsetWidth}px`
-        this.$tabLine.style.transform = `translateX(${$tab.offsetLeft}px)`
-        this.$$tabPanels.forEach($panel => $panel.classList.remove('active'))
-        this.$$tabPanels[index].classList.add('active')
+        this.setTabItem($tab)
+        this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
+        this.setTabPanel($tab)
       }
     })
+  }
+  setTabItem($tab) {
+    this.$$tabItems.forEach($tab => $tab.classList.remove('active'))
+    $tab.classList.add('active')
+  }
+  setTabPanel($tab) {
+    const index = [...this.$$tabItems].indexOf($tab)
+    this.$$tabPanels.forEach($panel => $panel.classList.remove('active'))
+    this.$$tabPanels[index].classList.add('active')
+  }
+  setTabLine(width, left) {
+    this.$tabLine.style.width = `${width}px`
+    this.$tabLine.style.transform = `translateX(${left}px)`
   }
 }
 
 export default Tabs
+
+// tab key
+// callback event
+// set tab header dom
