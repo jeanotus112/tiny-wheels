@@ -1,4 +1,4 @@
-.tabs {
+.tiny-tabs {
   .tab-header {
     position: relative;
     display: flex;
@@ -8,9 +8,11 @@
     font-weight: 500;
     border-bottom: 2px solid #ddd;
     .tab-item {
+      display: flex;
+      align-items: center;
       margin-right: 30px;
       cursor: pointer;
-      white-space: nowrap;
+      flex-shrink: 0;
       &.active {
         color: #409eff;
       }

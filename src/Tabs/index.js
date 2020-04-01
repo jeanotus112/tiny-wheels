@@ -21,7 +21,7 @@ class Tabs {
     const $tabLine = document.createElement('span')
     $tabLine.setAttribute('class', 'tab-line')
     $tabHeader.appendChild($tabLine)
-    this.$container.insertBefore($tabHeader, document.querySelector('.tab-content'))
+    this.$container.insertBefore($tabHeader, this.$container.querySelector('.tab-content'))
   }
 
   setTabs () {
@@ -65,11 +65,13 @@ class Tabs {
   }
 
   setTabStatus () {
-    this.$$tabPanels.forEach(($panel, index) => {
-      if ($panel.dataset.key === this.$container.dataset.disabled) {
-        this.$$tabItems[index].classList.add('disabled')
-      }
-    })
+    if (this.$container.dataset.disabled) {
+      this.$$tabPanels.forEach(($panel, index) => {
+        if ($panel.dataset.key === this.$container.dataset.disabled) {
+          this.$$tabItems[index].classList.add('disabled')
+        }
+      })
+    }
   }
 
   setTabItem ($tab) {
