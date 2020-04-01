@@ -3,25 +3,54 @@ import '../../style/tab.scss'
 class Tabs {
   constructor ($container, callback = () => {}) {
     this.$container = $container
-    this.$$tabPanels = $container.querySelectorAll('.tab-panel')
     this.initTabs()
     this.setTabs()
     this.bindTabs(callback)
   }
 
   initTabs () {
+    this.$container.classList.add('tiny-tabs')
+    const $tabPanels = this.initTabPanels()
+    const $tabHeader = this.initTabHeader()
+    this.$container.insertBefore($tabHeader, $tabPanels)
+  }
+
+  initTabPanels () {
+    const $tabPanels = document.createElement('div')
+    const $$tabPanels = this.$container.children
+    this.$$tabPanels = [...$$tabPanels]
+    $tabPanels.setAttribute('class', 'tab-panels')
+    this.$$tabPanels.forEach($panel => {
+      $panel.setAttribute('class', 'tab-panel')
+      $tabPanels.appendChild($panel)
+    })
+    this.$container.appendChild($tabPanels)
+    return $tabPanels
+  }
+
+  initTabHeader () {
     const $tabHeader = document.createElement('div')
     $tabHeader.setAttribute('class', 'tab-header')
     this.$$tabPanels.forEach($panel => {
-      const $tabItem = document.createElement('span')
-      $tabItem.setAttribute('class', 'tab-item')
-      $tabItem.innerText = $panel.dataset.name
+      const $tabItem = this.initTabItem($panel)
       $tabHeader.appendChild($tabItem)
     })
+    const $tabLine = this.initTabLine()
+    $tabHeader.appendChild($tabLine)
+    return $tabHeader
+  }
+
+  initTabItem ($panel) {
+    const $tabItem = document.createElement('span')
+    $tabItem.setAttribute('class', 'tab-item')
+    $tabItem.innerText = $panel.dataset.tabName
+    return $tabItem
+  }
+
+  initTabLine () {
     const $tabLine = document.createElement('span')
     $tabLine.setAttribute('class', 'tab-line')
-    $tabHeader.appendChild($tabLine)
-    this.$container.insertBefore($tabHeader, this.$container.querySelector('.tab-content'))
+    return $tabLine
   }
 
   setTabs () {
@@ -38,11 +67,11 @@ class Tabs {
   }
 
   getTabIndex () {
-    const tabKey = this.$container.dataset.active
+    const tabKey = this.$container.dataset.tabActive
     let tabIndex = 0
     if (tabKey) {
       this.$$tabPanels.forEach(($panel, index) => {
-        if ($panel.dataset.key === tabKey) {
+        if ($panel.dataset.tabKey === tabKey) {
           tabIndex = index
         }
       })
@@ -65,9 +94,10 @@ class Tabs {
   }
 
   setTabStatus () {
-    if (this.$container.dataset.disabled) {
+    const tabKey = this.$container.dataset.tabDisabled
+    if (tabKey) {
       this.$$tabPanels.forEach(($panel, index) => {
-        if ($panel.dataset.key === this.$container.dataset.disabled) {
+        if ($panel.dataset.tabKey === tabKey) {
           this.$$tabItems[index].classList.add('disabled')
         }
       })
@@ -91,5 +121,3 @@ class Tabs {
 }
 
 export default Tabs
-
-// callback event

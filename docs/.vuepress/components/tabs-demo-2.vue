@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-    <div class="tabs-demo-2 tiny-tabs" data-active="2">
-      <div class="tab-content">
-        <div data-name="选项卡1" data-key="1" class="tab-panel">内容1</div>
-        <div data-name="选项卡2" data-key="2" class="tab-panel">内容2</div>
-        <div data-name="选项卡3" data-key="3" class="tab-panel">内容3</div>
-        <div data-name="选项卡4" data-key="4" class="tab-panel">内容4</div>
-      </div>
+    <div class="tabs-demo-2" data-tab-active="2">
+      <div data-tab-name="选项卡1" data-tab-key="1">内容1</div>
+      <div data-tab-name="选项卡2" data-tab-key="2">内容2</div>
+      <div data-tab-name="选项卡3" data-tab-key="3">内容3</div>
+      <div data-tab-name="选项卡4" data-tab-key="4">内容4</div>
     </div>
   </div>
 </template>

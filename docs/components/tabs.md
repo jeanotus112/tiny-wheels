@@ -10,21 +10,19 @@ title: Tabs
 
 ### 配置
 
-通过`data-name`可以设置选项卡的名字
+通过`data-tab-name`可以设置选项卡的名字
 
 ```html
-<div class="tiny-tabs">
-  <div class="tab-content">
-    <div data-name="选项卡1" class="tab-panel">内容1</div>
-    <div data-name="选项卡2" class="tab-panel">内容2</div>
-    <div data-name="选项卡3" class="tab-panel">内容3</div>
-    <div data-name="选项卡4" class="tab-panel">内容4</div>
-  </div>
+<div class="tabs">
+  <div data-tab-name="选项卡1">内容1</div>
+  <div data-tab-name="选项卡2">内容2</div>
+  <div data-tab-name="选项卡3">内容3</div>
+  <div data-tab-name="选项卡4">内容4</div>
 </div>
 ```
 
 ```javascript
-new Tabs(document.querySelector('.tiny-tabs'))
+new Tabs(document.querySelector('.tabs'))
 ```
 
 ## 默认选中项
@@ -35,25 +33,23 @@ new Tabs(document.querySelector('.tiny-tabs'))
 
 ### 配置
 
-如果要设置默认选中项，需要先给每个`tab-panel`绑定`data-key`，然后设置`data-active`的值为对应`data-key`的值
+如果要设置默认的选中项，需要先给每一项绑定`data-tab-key`，然后设置`data-tab-active`的值为特定项的`data-tab-key`
 
-- data-key 的值可以是任意字符串，但不能重复
+- data-tab-key 的值可以是任意字符串，但不能重复
 
-- 如果不设置 data-active，则默认选中第一个选项卡
+- 如果不设置 data-tab-active，则默认选中第一个选项卡
 
 ```html
-<div class="tiny-tabs" data-active="2">
-  <div class="tab-content">
-    <div data-name="选项卡1" data-key="1" class="tab-panel">内容1</div>
-    <div data-name="选项卡2" data-key="2" class="tab-panel">内容2</div>
-    <div data-name="选项卡3" data-key="3" class="tab-panel">内容3</div>
-    <div data-name="选项卡4" data-key="4" class="tab-panel">内容4</div>
-  </div>
+<div class="tabs" data-tab-active="2">
+  <div data-tab-name="选项卡1" data-tab-key="1">内容1</div>
+  <div data-tab-name="选项卡2" data-tab-key="2">内容2</div>
+  <div data-tab-name="选项卡3" data-tab-key="3">内容3</div>
+  <div data-tab-name="选项卡4" data-tab-key="4">内容4</div>
 </div>
 ```
 
 ```javascript
-new Tabs(document.querySelector('.tiny-tabs'))
+new Tabs(document.querySelector('.tabs'))
 ```
 
 ## 禁用选项卡
@@ -64,16 +60,14 @@ new Tabs(document.querySelector('.tiny-tabs'))
 
 ### 配置
 
-将`data-disabled`设置为`data-key`的值即可禁用对应选项卡
+如果要设置禁用的选项卡，需要先给每一项绑定`data-tab-key`，然后设置`data-tab-disabled`的值设置为特定项的`data-tab-key`
 
 ```html
-<div class="tiny-tabs" data-disabled="3">
-  <div class="tab-content">
-    <div data-name="选项卡1" data-key="1" class="tab-panel">内容1</div>
-    <div data-name="选项卡2" data-key="2" class="tab-panel">内容2</div>
-    <div data-name="选项卡3" data-key="3" class="tab-panel">内容3</div>
-    <div data-name="选项卡4" data-key="4" class="tab-panel">内容4</div>
-  </div>
+<div class="tabs" data-tab-disabled="3">
+  <div data-tab-name="选项卡1" data-tab-key="1">内容1</div>
+  <div data-tab-name="选项卡2" data-tab-key="2">内容2</div>
+  <div data-tab-name="选项卡3" data-tab-key="3">内容3</div>
+  <div data-tab-name="选项卡4" data-tab-key="4">内容4</div>
 </div>
 ```
 
@@ -85,14 +79,14 @@ new Tabs(document.querySelector('.tiny-tabs'))
 - 第二个参数为选项卡被选中时触发的回调函数，返回当前点击的元素和索引，选填
 
 ```javascript
-new Tabs(document.querySelector('.tiny-tabs'), ($tab, index) => {
+new Tabs(document.querySelector('.tabs'), ($tab, index) => {
   console.log($tab, index)
 })
 ```
 
 ## API
 
-- data-name：选项卡的名字，必填
-- data-key：选项卡的 key，选填
-- data-active：选中选项卡的 data-key，选填
-- data-disabled：禁用选项卡的 data-key，选填
+- data-tab-name：选项卡的名字，必填
+- data-tab-key：如果需要设置 data-tab-active 或 data-tab-disabled，则必填
+- data-tab-active：选中选项卡的 data-key，选填
+- data-tab-disabled：禁用选项卡的 data-key，选填

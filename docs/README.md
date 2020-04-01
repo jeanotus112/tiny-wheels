@@ -19,20 +19,18 @@
 > npm install tiny-wheels -S
 
 ```html
-<div class="tiny-tabs">
-    <div class="tab-content">
-        <div data-name="选项卡1" class="tab-panel">内容1</div>
-        <div data-name="选项卡2" class="tab-panel">内容2</div>
-        <div data-name="选项卡3" class="tab-panel">内容3</div>
-        <div data-name="选项卡4" class="tab-panel">内容4</div>
-    </div>
+<div class="tabs">
+    <div data-tab-name="选项卡1">内容1</div>
+    <div data-tab-name="选项卡2">内容2</div>
+    <div data-tab-name="选项卡3">内容3</div>
+    <div data-tab-name="选项卡4">内容4</div>
 </div>
 ```
 
 ```javascript
 import { Tabs } from 'tiny-wheels'
 
-new Tabs(document.querySelector('.tiny-tabs'))
+new Tabs(document.querySelector('.tabs'))
 ```
 
 - 标签引入
@@ -48,17 +46,15 @@ new Tabs(document.querySelector('.tiny-tabs'))
     <title>Example</title>
 </head>
 <body>
-    <div class="tiny-tabs">
-        <div class="tab-content">
-            <div data-name="选项卡1" class="tab-panel">内容1</div>
-            <div data-name="选项卡2" class="tab-panel">内容2</div>
-            <div data-name="选项卡3" class="tab-panel">内容3</div>
-            <div data-name="选项卡4" class="tab-panel">内容4</div>
-        </div>
+    <div class="tabs">
+        <div data-tab-name="选项卡1">内容1</div>
+        <div data-tab-name="选项卡2">内容2</div>
+        <div data-tab-name="选项卡3">内容3</div>
+        <div data-tab-name="选项卡4">内容4</div>
     </div>
     <script src="https://unpkg.com/tiny-wheels/dist/index.js"></script>
     <script>
-        new TinyWheels.Tabs(document.querySelector('.tiny-tabs'))
+        new TinyWheels.Tabs(document.querySelector('.tabs'))
     </script>
 </body>
 </html>
@@ -66,9 +62,9 @@ new Tabs(document.querySelector('.tiny-tabs'))
 
 由于项目已经暴露了全局变量`TinyWheels`，所以在浏览器环境可以直接使用，通过标签引入的具体示例可以参考项目根目录下的`example.html`
 
-> 每个组件的`HTML`结构是固定的，参考文档中的示例使用即可
+> 组件的`HTML`结构是固定的，参考文档中的示例使用即可
 
-> 注意！组件最外层容器元素的类名必须包含`tiny-*`的名字，否则无法加载组件样式，当然你也可以按照自己的需求添加类名，覆盖默认样式
+> 组件初始化时绑定的元素会自动添加`tiny-*`的类名，你也可以按照自己的需求添加类名，覆盖默认样式
 
 ## 开发
 
