@@ -1,12 +1,12 @@
 import '../../style/tab.scss'
 
 class Tabs {
-  constructor ($container) {
+  constructor ($container, callback = () => {}) {
     this.$container = $container
     this.$$tabPanels = $container.querySelectorAll('.tab-panel')
     this.initTabs()
     this.setTabs()
-    this.bindTabs()
+    this.bindTabs(callback)
   }
 
   initTabs () {
@@ -50,7 +50,7 @@ class Tabs {
     return tabIndex
   }
 
-  bindTabs () {
+  bindTabs (callback) {
     this.$$tabItems.forEach($tab => {
       $tab.addEventListener('click', () => {
         if (!$tab.classList.contains('disabled')) {
@@ -58,6 +58,7 @@ class Tabs {
           this.setTabItem($tab)
           this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
           this.setTabPanel(this.$$tabPanels[index])
+          callback.call(null, $tab, index)
         }
       })
     })
@@ -89,6 +90,4 @@ class Tabs {
 
 export default Tabs
 
-// tab key
 // callback event
-// set tab header dom

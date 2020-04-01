@@ -10,6 +10,7 @@
     .tab-item {
       margin-right: 30px;
       cursor: pointer;
+      white-space: nowrap;
       &.active {
         color: #409eff;
       }
