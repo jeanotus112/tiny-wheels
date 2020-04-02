@@ -22,7 +22,9 @@ title: Tabs
 ```
 
 ```javascript
-new Tabs(document.querySelector('.tabs'))
+new Tabs({
+  element: document.querySelector('.tabs')
+})
 ```
 
 ## 默认选中项
@@ -49,7 +51,9 @@ new Tabs(document.querySelector('.tabs'))
 ```
 
 ```javascript
-new Tabs(document.querySelector('.tabs'))
+new Tabs({
+  element: document.querySelector('.tabs')
+})
 ```
 
 ## 禁用选项卡
@@ -71,16 +75,38 @@ new Tabs(document.querySelector('.tabs'))
 </div>
 ```
 
-## 参数
+## 禁用动画
 
-`Tabs`构造函数接受两个参数：
+### 效果
 
-- 第一个参数为当前需要绑定的 tabs 元素，必填
-- 第二个参数为选项卡被选中时触发的回调函数，返回当前点击的元素和索引，选填
+<ClientOnly><tabs-demo-4></tabs-demo-4></ClientOnly>
+
+### 配置
+
+组件默认给选项卡面板设置了过渡动画，如果需要关闭，可以设置构造函数参数中的`animated`属性为false
 
 ```javascript
-new Tabs(document.querySelector('.tabs'), ($tab, index) => {
-  console.log($tab, index)
+new Tabs({
+  element: document.querySelector('.tabs'),
+  animated: false
+})
+```
+
+## 参数
+
+`Tabs`组件构造函数的参数是一个对象，该对象接收三个属性作为配置：
+
+- element：当前需要绑定的 tabs 元素，必填
+- callback：选项卡被选中时触发的回调函数，返回当前点击的元素和索引，选填
+- animated：是否开启选项卡面板的动画效果，默认为true，选填
+
+```javascript
+new Tabs({
+  element: document.querySelector('.tabs'),
+  callback: ($tab, index) => {
+    console.log($tab, index)
+  },
+  animated: false
 })
 ```
 

@@ -16,7 +16,9 @@ export default {
   mounted () {
     import('../../../dist/index.js').then(module => {
       const { Tabs } = module
-      new Tabs(document.querySelector('.tabs-demo-1'))
+      new Tabs({
+        element: document.querySelector('.tabs-demo-1')
+      })
     })
   }
 }

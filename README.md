@@ -30,7 +30,9 @@
 ```javascript
 import { Tabs } from 'tiny-wheels'
 
-new Tabs(document.querySelector('.tabs'))
+new Tabs({
+    element: document.querySelector('.tabs')
+})
 ```
 
 - 标签引入
@@ -54,7 +56,9 @@ new Tabs(document.querySelector('.tabs'))
     </div>
     <script src="https://unpkg.com/tiny-wheels/dist/index.js"></script>
     <script>
-        new TinyWheels.Tabs(document.querySelector('.tabs'))
+        new TinyWheels.Tabs({
+            element: document.querySelector('.tabs')
+        })
     </script>
 </body>
 </html>

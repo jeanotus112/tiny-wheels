@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="tabs-demo-3" data-tab-disabled="3">
+    <div class="tabs-demo-4" data-tab-disabled="3">
       <div data-tab-name="选项卡1" data-tab-key="1">内容1</div>
       <div data-tab-name="选项卡2" data-tab-key="2">内容2</div>
       <div data-tab-name="选项卡3" data-tab-key="3">内容3</div>
@@ -17,7 +17,8 @@ export default {
     import('../../../dist/index.js').then(module => {
       const { Tabs } = module
       new Tabs({
-        element: document.querySelector('.tabs-demo-3')
+        element: document.querySelector('.tabs-demo-4'),
+        animated: false
       })
     })
   }

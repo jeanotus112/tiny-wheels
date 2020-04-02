@@ -1,4 +1,5 @@
 .tiny-tabs {
+  overflow: hidden;
   .tab-header {
     position: relative;
     display: flex;
@@ -33,13 +34,25 @@
     }
   }
   .tab-panels {
+    display: flex;
+    flex-direction: row;
+    transform: none;
     .tab-panel {
       padding: 16px 0;
       font-size: 14px;
-      display: none;
+      width: 100%;
+      transition: opacity .3s;
+      opacity: 1;
+      outline: 0;
+      flex-shrink: 0;
+      visibility: hidden;
       &.active {
-        display: block;
+        visibility: visible;
       }
+    }
+    &.animated {
+      will-change: transform;
+      transition: transform .3s ease-in-out;
     }
   }
 }

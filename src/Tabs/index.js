@@ -1,18 +1,24 @@
 import '../../style/tab.scss'
 
 class Tabs {
-  constructor ($container, callback = () => {}) {
-    this.$container = $container
+  constructor (options) {
+    let defaultOptions = {
+      element: '',
+      callback: () => {},
+      animated: true
+    }
+    this.options = Object.assign({}, defaultOptions, options)
+    this.$container = this.options.element
     this.initTabs()
     this.setTabs()
-    this.bindTabs(callback)
+    this.bindTabs()
   }
 
   initTabs () {
     this.$container.classList.add('tiny-tabs')
-    const $tabPanels = this.initTabPanels()
+    this.$tabPanels = this.initTabPanels()
     const $tabHeader = this.initTabHeader()
-    this.$container.insertBefore($tabHeader, $tabPanels)
+    this.$container.insertBefore($tabHeader, this.$tabPanels)
   }
 
   initTabPanels () {
@@ -62,7 +68,7 @@ class Tabs {
       const { offsetWidth, offsetLeft } = this.$$tabItems[tabIndex]
       this.setTabItem(this.$$tabItems[tabIndex])
       this.setTabLine(offsetWidth, offsetLeft)
-      this.setTabPanel(this.$$tabPanels[tabIndex])
+      this.setTabPanel(this.$$tabPanels[tabIndex], tabIndex)
     }
   }
 
@@ -79,15 +85,15 @@ class Tabs {
     return tabIndex
   }
 
-  bindTabs (callback) {
+  bindTabs () {
     this.$$tabItems.forEach($tab => {
       $tab.addEventListener('click', () => {
         if (!$tab.classList.contains('disabled')) {
           const index = [...this.$$tabItems].indexOf($tab)
           this.setTabItem($tab)
           this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
-          this.setTabPanel(this.$$tabPanels[index])
-          callback.call(null, $tab, index)
+          this.setTabPanel(this.$$tabPanels[index], index)
+          this.options.callback.call(null, $tab, index)
         }
       })
     })
@@ -109,9 +115,15 @@ class Tabs {
     $tab.classList.add('active')
   }
 
-  setTabPanel ($panel) {
+  setTabPanel ($panel, index) {
+    this.$tabPanels.style.transform = `translateX(-${index * 100}%)`
     this.$$tabPanels.forEach($panel => $panel.classList.remove('active'))
     $panel.classList.add('active')
+    setTimeout(() => {
+      if (this.options.animated) {
+        this.$tabPanels.classList.add('animated')
+      }
+    });
   }
 
   setTabLine (width, left) {
