@@ -63,7 +63,7 @@ class Tabs {
     this.$$tabItems = this.$container.querySelectorAll('.tab-item')
     this.$tabLine = this.$container.querySelector('.tab-line')
     this.setTabStatus()
-    const tabIndex = this.getTabIndex()
+    const tabIndex = this.getTabIndex() ? this.getTabIndex() : 0
     if (this.$$tabItems[tabIndex]) {
       const { offsetWidth, offsetLeft } = this.$$tabItems[tabIndex]
       this.setTabItem(this.$$tabItems[tabIndex])
@@ -74,7 +74,7 @@ class Tabs {
 
   getTabIndex () {
     const tabKey = this.$container.dataset.tabActive
-    let tabIndex = 0
+    let tabIndex = tabKey
     if (tabKey) {
       this.$$tabPanels.forEach(($panel, index) => {
         if ($panel.dataset.tabKey === tabKey) {
