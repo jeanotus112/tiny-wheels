@@ -7,8 +7,8 @@ import Collapse from './Collapse'
 new Tabs({
   element: document.querySelector('.tabs'),
   animated: true,
-  callback: ($tab, index) => {
-    console.log($tab, index)
+  callback: ($tab, key) => {
+    console.log($tab, key)
   }
 })
 

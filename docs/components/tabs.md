@@ -97,14 +97,14 @@ new Tabs({
 `Tabs`组件构造函数的参数是一个对象，该对象接收三个属性作为配置：
 
 - element：当前需要绑定的 tabs 元素，必填
-- callback：选项卡被选中时触发的回调函数，返回当前点击的元素和索引，选填
+- callback：选项卡被选中时触发的回调函数，返回当前选中的选项卡元素和它的`data-tab-key`，选填
 - animated：是否开启选项卡面板的动画效果，默认为true，选填
 
 ```javascript
 new Tabs({
   element: document.querySelector('.tabs'),
-  callback: ($tab, index) => {
-    console.log($tab, index)
+  callback: ($tab, key) => {
+    console.log($tab, key)
   },
   animated: false
 })

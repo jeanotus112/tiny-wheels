@@ -93,7 +93,7 @@ class Tabs {
           this.setTabItem($tab)
           this.setTabLine($tab.offsetWidth, $tab.offsetLeft)
           this.setTabPanel(this.$$tabPanels[index], index)
-          this.options.callback.call(null, $tab, index)
+          this.options.callback.call(null, $tab, this.$$tabPanels[index].dataset.tabKey)
         }
       })
     })
