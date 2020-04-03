@@ -62,19 +62,19 @@ class Collapse {
   }
 
   bindCollapse () {
-    this.$$collapseItems.forEach(($collapseItem, index) => {
-      $collapseItem.addEventListener('click', () => {
+    this.$$collapseItems.forEach(($bindItem, index) => {
+      $bindItem.addEventListener('click', () => {
         if (this.options.accordion) {
           this.$$collapseItems.forEach($item => {
-            if ($item !== $collapseItem) {
+            if ($item !== $bindItem) {
               $item.classList.remove('active')
             }
           })
         }
-        $collapseItem.classList.toggle('active')
+        $bindItem.classList.toggle('active')
         const collapseKey = this.$$collapsePanels[index].dataset.collapseKey
         const collapseActiveKeys = this.getCollapseActiveKeys()
-        this.options.callback.call(null, $collapseItem, collapseKey, collapseActiveKeys)
+        this.options.callback.call(null, $bindItem, collapseKey, collapseActiveKeys)
       })
     })
   }

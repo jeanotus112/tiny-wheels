@@ -16,22 +16,22 @@ class Tabs {
 
   initTabs () {
     this.$container.classList.add('tiny-tabs')
-    this.$tabPanels = this.initTabPanels()
+    this.$tabPanelContainer = this.initTabPanels()
     const $tabHeader = this.initTabHeader()
-    this.$container.insertBefore($tabHeader, this.$tabPanels)
+    this.$container.insertBefore($tabHeader, this.$tabPanelContainer)
   }
 
   initTabPanels () {
-    const $tabPanels = document.createElement('div')
+    const $tabPanelContainer = document.createElement('div')
     const $$tabPanels = this.$container.children
     this.$$tabPanels = [...$$tabPanels]
-    $tabPanels.setAttribute('class', 'tab-panels')
+    $tabPanelContainer.setAttribute('class', 'tab-panels')
     this.$$tabPanels.forEach($panel => {
       $panel.setAttribute('class', 'tab-panel')
-      $tabPanels.appendChild($panel)
+      $tabPanelContainer.appendChild($panel)
     })
-    this.$container.appendChild($tabPanels)
-    return $tabPanels
+    this.$container.appendChild($tabPanelContainer)
+    return $tabPanelContainer
   }
 
   initTabHeader () {
@@ -116,12 +116,12 @@ class Tabs {
   }
 
   setTabPanel ($panel, index) {
-    this.$tabPanels.style.transform = `translateX(-${index * 100}%)`
+    this.$tabPanelContainer.style.transform = `translateX(-${index * 100}%)`
     this.$$tabPanels.forEach($panel => $panel.classList.remove('active'))
     $panel.classList.add('active')
     setTimeout(() => {
       if (this.options.animated) {
-        this.$tabPanels.classList.add('animated')
+        this.$tabPanelContainer.classList.add('animated')
       }
     });
   }
