@@ -23,5 +23,5 @@ new Collapse({
 
 new Pager({
   element: document.querySelector('.pager'),
-  total: 100
+  total: 14
 })

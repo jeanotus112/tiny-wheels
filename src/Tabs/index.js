@@ -2,7 +2,7 @@ import '../../style/tab.scss'
 
 class Tabs {
   constructor (options) {
-    let defaultOptions = {
+    const defaultOptions = {
       element: '',
       callback: () => {},
       animated: true
@@ -123,7 +123,7 @@ class Tabs {
       if (this.options.animated) {
         this.$tabPanelContainer.classList.add('animated')
       }
-    });
+    })
   }
 
   setTabLine (width, left) {

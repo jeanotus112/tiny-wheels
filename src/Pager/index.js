@@ -2,7 +2,7 @@ import '../../style/pager.scss'
 
 class Pager {
   constructor (options) {
-    let defaultOptions = {
+    const defaultOptions = {
       element: null,
       total: 0,
       size: 10,
@@ -10,22 +10,8 @@ class Pager {
       callback: () => {}
     }
     this.options = Object.assign({}, defaultOptions, options)
-    this.pagerCurrent = this.options.current
-    this.pagerTotal = this.getPagerTotal()
     this.initPager()
     this.setPager()
-  }
-
-  getPagerTotal () {
-    const totalCount = this.options.total
-    const perCount = this.options.size
-    let pagerCount = 0
-    if (totalCount % perCount === 0) {
-      pagerCount = totalCount / perCount
-    } else {
-      pagerCount = (totalCount - totalCount % perCount) / perCount + 1
-    }
-    return pagerCount
   }
 
   initPager () {
@@ -33,6 +19,20 @@ class Pager {
     $container.setAttribute('class', 'tiny-pager')
     this.options.element.appendChild($container)
     this.$container = $container
+    this.pagerCurrent = this.options.current
+    this.pagerCount = this.getPagerCount()
+  }
+
+  getPagerCount () {
+    const total = this.options.total
+    const size = this.options.size
+    let count = 0
+    if (total % size === 0) {
+      count = total / size
+    } else {
+      count = (total - total % size) / size + 1
+    }
+    return count
   }
 
   setPager () {
@@ -43,17 +43,17 @@ class Pager {
   }
 
   getPager () {
-    let pages = [
+    const pages = [
       1,
-      this.pagerTotal,
+      this.pagerCount,
       this.pagerCurrent,
       this.pagerCurrent - 1,
       this.pagerCurrent - 2,
       this.pagerCurrent + 1,
       this.pagerCurrent + 2
     ]
-    let u = unique(
-      pages.filter(n => n >= 1 && n <= this.pagerTotal).sort((a, b) => a - b)
+    const u = unique(
+      pages.filter(n => n >= 1 && n <= this.pagerCount).sort((a, b) => a - b)
     )
     this.pagerDatas = u.reduce((prev, current, index, array) => {
       prev.push(current)
@@ -95,7 +95,7 @@ class Pager {
   renderPagerNext () {
     const $pagerNext = document.createElement('li')
     $pagerNext.setAttribute('class', 'pager-next')
-    if (this.pagerCurrent === this.pagerTotal) {
+    if (this.pagerCurrent === this.pagerCount) {
       $pagerNext.classList.add('disabled')
     }
     $pagerNext.innerText = '>'

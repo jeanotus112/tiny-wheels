@@ -2,7 +2,7 @@ import '../../style/collapse.scss'
 
 class Collapse {
   constructor (options) {
-    let defaultOptions = {
+    const defaultOptions = {
       element: '',
       callback: () => {},
       accordion: false
@@ -13,7 +13,7 @@ class Collapse {
     this.setCollapse()
     this.bindCollapse()
   }
-  
+
   initCollapse () {
     this.$container.classList.add('tiny-collapse')
     this.initCollapsePanels()
@@ -79,7 +79,7 @@ class Collapse {
     })
   }
 
-  getCollapseActiveKeys() {
+  getCollapseActiveKeys () {
     const collapseActiveKeys = []
     this.$$collapseItems.forEach(($item, index) => {
       if ($item.classList.contains('active')) {
