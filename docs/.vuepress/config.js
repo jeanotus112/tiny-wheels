@@ -16,7 +16,7 @@ module.exports = {
       {
         title: '组件',
         collapsable: false,
-        children: ['/components/tabs', '/components/collapse']
+        children: ['/components/collapse', '/components/tabs', '/components/pager']
       }
     ]
   },

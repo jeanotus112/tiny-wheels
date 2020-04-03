@@ -116,7 +116,7 @@ new Tabs({
 
 - [x] Tabs-选项卡
 - [x] Collapse-折叠面板
-- [ ] Pager-分页
+- [x] Pager-分页
 - [ ] Carousel-走马灯
 - [ ] Calendar-日历
 - [ ] 单元测试

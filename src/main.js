@@ -24,6 +24,8 @@ new Collapse({
 new Pager({
   element: document.querySelector('.pager'),
   total: 200,
+  size: 20,
+  current: 1,
   callback: (number) => {
     console.log(number)
   }
