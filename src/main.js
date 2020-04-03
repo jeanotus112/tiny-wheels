@@ -1,5 +1,6 @@
 import Tabs from './Tabs'
 import Collapse from './Collapse'
+import Pager from './Pager'
 
 // const pager = new Pager(document.querySelector('.pager'))
 // console.log(pager.$container)
@@ -18,4 +19,9 @@ new Collapse({
   callback: ($item, key, keys) => {
     console.log($item, key, keys)
   }
+})
+
+new Pager({
+  element: document.querySelector('.pager'),
+  total: 100
 })

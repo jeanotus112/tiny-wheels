@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example</title>
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       .container {
         max-width: 800px;
         margin: 30px auto;
         border-radius: 4px;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
         padding: 16px;
+      }
+      .container h2 {
+        margin: 20px 0;
       }
     </style>
   </head>
@@ -44,9 +52,9 @@
     <div class="container">
       <h2>Pager 分页</h2>
       <div class="pager">
-        <ul class="tiny-pager">
-          <li class="pager-prev">&lt;</li>
-          <li class="pager-item">1</li>
+        <!-- <ul class="tiny-pager">
+          <li class="pager-prev disabled">&lt;</li>
+          <li class="pager-item active">1</li>
           <li class="pager-item">2</li>
           <li class="pager-item">3</li>
           <li class="pager-more">···</li>
@@ -54,8 +62,7 @@
           <li class="pager-item">9</li>
           <li class="pager-item">10</li>
           <li class="pager-next">&gt;</li>
-        </ul>
-        <ol></ol>
+        </ul> -->
       </div>
     </div>
   </body>

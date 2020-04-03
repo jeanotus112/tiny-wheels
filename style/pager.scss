@@ -1,6 +1,50 @@
 .tiny-pager {
-    display: block;
-    .pager-item {
-        display: flex;
+  display: flex;
+  align-items: center;
+  .pager-prev,
+  .pager-item,
+  .pager-more,
+  .pager-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+    margin: 0 8px;
+    &:hover {
+      border-color: #666;
     }
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .pager-prev,
+  .pager-next {
+    &.disabled {
+      color: #ddd;
+      cursor: not-allowed;
+      &:hover {
+        border-color: #ddd;
+      }
+    }
+  }
+  .pager-item {
+    &.active {
+      border-color: #666;
+    }
+  }
+  .pager-more {
+    width: auto;
+    border: none;
+    cursor: default;
+  }
 }
