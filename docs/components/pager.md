@@ -14,6 +14,10 @@ title: Pager
 - 构造函数中的`current`属性，可以设置当前页码
 - 构造函数中的`size`属性，可以设置每页条数
 
+```html
+<div class="pager"></div>
+```
+
 ```javascript
 new Pager({
   element: document.querySelector(".pager"),
