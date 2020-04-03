@@ -23,5 +23,8 @@ new Collapse({
 
 new Pager({
   element: document.querySelector('.pager'),
-  total: 14
+  total: 200,
+  callback: (number) => {
+    console.log(number)
+  }
 })

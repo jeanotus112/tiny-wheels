@@ -19,59 +19,59 @@ class Pager {
     $container.setAttribute('class', 'tiny-pager')
     this.options.element.appendChild($container)
     this.$container = $container
-    this.pagerCurrent = this.options.current
-    this.pagerCount = this.getPagerCount()
+    this.pageCurrent = this.options.current
+    this.pageCount = this.getpageCount()
   }
 
-  getPagerCount () {
+  getpageCount () {
     const total = this.options.total
     const size = this.options.size
     let count = 0
     if (total % size === 0) {
       count = total / size
     } else {
-      count = (total - total % size) / size + 1
+      count = (total - (total % size)) / size + 1
     }
     return count
   }
 
   setPager () {
-    this.getPager()
+    const pageItems = this.getPager()
     this.removePager()
-    this.renderPager()
+    this.renderPager(pageItems)
     this.bindPager()
   }
 
   getPager () {
     const pages = [
       1,
-      this.pagerCount,
-      this.pagerCurrent,
-      this.pagerCurrent - 1,
-      this.pagerCurrent - 2,
-      this.pagerCurrent + 1,
-      this.pagerCurrent + 2
+      this.pageCount,
+      this.pageCurrent,
+      this.pageCurrent - 1,
+      this.pageCurrent - 2,
+      this.pageCurrent + 1,
+      this.pageCurrent + 2
     ]
-    const u = unique(
-      pages.filter(n => n >= 1 && n <= this.pagerCount).sort((a, b) => a - b)
-    )
-    this.pagerDatas = u.reduce((prev, current, index, array) => {
-      prev.push(current)
-      if (
-        array[index + 1] !== undefined &&
-        array[index + 1] - array[index] > 1
-      ) {
-        prev.push('···')
+    const pageNumbers = [
+      ...new Set(
+        pages.filter(n => n >= 1 && n <= this.pageCount).sort((a, b) => a - b)
+      )
+    ]
+    const pageItems = pageNumbers.reduce((items, current, index, array) => {
+      items.push(current)
+      if (array[index + 1] && array[index + 1] - array[index] > 1) {
+        items.push('···')
       }
-      return prev
+      return items
     }, [])
+    return pageItems
   }
 
-  renderPager () {
-    console.log(this.pagerDatas)
+  renderPager (pageItems) {
+    // console.log(pageItems)
     this.renderPagerPrev()
-    this.pagerDatas.forEach(pagerData => {
-      this.renderPagerItem(pagerData)
+    pageItems.forEach(pageItem => {
+      this.renderPagerItem(pageItem)
     })
     this.renderPagerNext()
   }
@@ -85,7 +85,7 @@ class Pager {
   renderPagerPrev () {
     const $pagerPrev = document.createElement('li')
     $pagerPrev.setAttribute('class', 'pager-prev')
-    if (this.pagerCurrent === 1) {
+    if (this.pageCurrent === 1) {
       $pagerPrev.classList.add('disabled')
     }
     $pagerPrev.innerText = '<'
@@ -95,24 +95,24 @@ class Pager {
   renderPagerNext () {
     const $pagerNext = document.createElement('li')
     $pagerNext.setAttribute('class', 'pager-next')
-    if (this.pagerCurrent === this.pagerCount) {
+    if (this.pageCurrent === this.pageCount) {
       $pagerNext.classList.add('disabled')
     }
     $pagerNext.innerText = '>'
     this.$container.appendChild($pagerNext)
   }
 
-  renderPagerItem (pagerData) {
+  renderPagerItem (pageItem) {
     const $pagerItem = document.createElement('li')
-    if (pagerData === this.pagerCurrent) {
+    if (pageItem === this.pageCurrent) {
       $pagerItem.setAttribute('class', 'pager-item')
       $pagerItem.classList.add('active')
-    } else if (pagerData === '···') {
+    } else if (pageItem === '···') {
       $pagerItem.setAttribute('class', 'pager-more')
     } else {
       $pagerItem.setAttribute('class', 'pager-item')
     }
-    $pagerItem.innerText = pagerData
+    $pagerItem.innerText = pageItem
     this.$container.appendChild($pagerItem)
   }
 
@@ -126,14 +126,16 @@ class Pager {
     const $pagerNext = document.querySelector('.pager-next')
     $pagerPrev.addEventListener('click', () => {
       if (!$pagerPrev.classList.contains('disabled')) {
-        this.pagerCurrent -= 1
+        this.pageCurrent -= 1
         this.setPager()
+        this.options.callback.call(null, this.pageCurrent)
       }
     })
     $pagerNext.addEventListener('click', () => {
       if (!$pagerNext.classList.contains('disabled')) {
-        this.pagerCurrent += 1
+        this.pageCurrent += 1
         this.setPager()
+        this.options.callback.call(null, this.pageCurrent)
       }
     })
   }
@@ -143,21 +145,13 @@ class Pager {
     $$pageItems.forEach($item => {
       $item.addEventListener('click', () => {
         if (!$item.classList.contains('active')) {
-          this.pagerCurrent = parseInt($item.innerText)
+          this.pageCurrent = parseInt($item.innerText)
           this.setPager()
+          this.options.callback.call(null, this.pageCurrent)
         }
       })
     })
   }
-}
-
-function unique (array) {
-  // return [...new Set(array)]
-  const object = []
-  array.map(number => {
-    object[number] = true
-  })
-  return Object.keys(object).map(s => parseInt(s, 10))
 }
 
 export default Pager
