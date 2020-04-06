@@ -1,6 +1,7 @@
 import Tabs from './Tabs'
 import Collapse from './Collapse'
 import Pager from './Pager'
+import Carousel from './Carousel'
 
 // const pager = new Pager(document.querySelector('.pager'))
 // console.log(pager.$container)
@@ -26,7 +27,15 @@ new Pager({
   total: 200,
   size: 20,
   current: 1,
-  callback: (number) => {
+  callback: number => {
     console.log(number)
   }
+})
+
+new Carousel({
+  element: document.querySelector('.carousel'),
+  height: '200px',
+  index: 1,
+  interval: 1000,
+  autoplay: true
 })
