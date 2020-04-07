@@ -96,6 +96,7 @@ class Carousel {
   bindCarouselContainer () {
     if (this.options.autoplay) {
       this.$container.addEventListener('mouseenter', () => {
+        console.log(this.isAnimate)
         this.pauseCarousel()
       })
       this.$container.addEventListener('mouseleave', () => {
@@ -133,15 +134,38 @@ class Carousel {
 
   setCarouselPanel ($from, $to, direction) {
     this.isAnimate = true
-    this.resetCarouselPanel($from, $to, direction)
+    // this.resetCarouselPanel($from, $to, direction)
+    // setTimeout(() => {
+    //   this.moveCarouselPanel($from, $to, direction)
+    // })
+
+    let fromClass = ''
+    let toClass = ''
+    if (direction === 'right') {
+      $to.setAttribute('class', 'carousel-panel prev')
+      fromClass = 'carousel-panel active right'
+      toClass = 'carousel-panel prev right'
+    } else if (direction === 'left') {
+      $to.setAttribute('class', 'carousel-panel next')
+      fromClass = 'carousel-panel active left'
+      toClass = 'carousel-panel next left'
+    }
     setTimeout(() => {
-      this.moveCarouselPanel($from, $to, direction)
-    })
+      $from.setAttribute('class', fromClass)
+      $to.setAttribute('class', toClass)
+    }, 0);
+    setTimeout(() => {
+      $from.setAttribute('class', 'carousel-panel')
+      $to.setAttribute('class', 'carousel-panel active')
+      this.isAnimate = false
+    }, 400);
   }
 
   resetCarouselPanel ($from, $to, direction) {
     // $from.style = ''
-    // $to.style = ''
+    //   $to.style = ''
+      // $from.classList.toggle('active')
+      // $to.classList.toggle('active')
     Object.assign($from.style, {
       transform: `translateX(0)`,
       zIndex: 1
