@@ -139,6 +139,14 @@ new Tabs({
 
 如果你遇到什么问题，或者有好的建议，欢迎提 [Issues](https://github.com/csdoker/tiny-wheels/issues) 和 [Pull Request](https://github.com/csdoker/tiny-wheels/pulls)
 
+## 教程
+
+本项目各个组件的开发教程会以文章的形式发布在以下几个平台，欢迎关注：
+
+- [Blog](https://blog.csdoker.com)
+- [掘金](https://juejin.im/user/57e0e4dac4c9710061387d0e/posts)
+- [Segmentfault](https://segmentfault.com/u/csdoker/articles)
+
 ## 参考
 
 本组件库参考了一些比较成熟的UI框架，包括但不限于外观、API设计、甚至源码实现，特此感谢这些开源社区的贡献者
