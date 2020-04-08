@@ -96,7 +96,8 @@
     margin: 0;
     padding: 0;
     .carousel-dot {
-      padding: 8px 4px;
+      padding: 8px 0;
+      margin: 0 4px;
       cursor: pointer;
       &::before {
         content: "";

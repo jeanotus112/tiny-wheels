@@ -89,8 +89,10 @@ class Carousel {
       $carouselDot.addEventListener('click', e => {
         const fromIndex = this.getCurrentIndex()
         const toIndex = [...this.$$dots].indexOf(e.target)
-        const direction = fromIndex > toIndex ? 'right' : 'left'
-        this.setCarousel(fromIndex, toIndex, direction)
+        if (fromIndex !== toIndex) {
+          const direction = fromIndex > toIndex ? 'right' : 'left'
+          this.setCarousel(fromIndex, toIndex, direction)
+        }
       })
     })
   }
@@ -146,7 +148,7 @@ class Carousel {
   resetCarouselPanel ($to, direction) {
     let fromClass = ''
     let toClass = ''
-    let type = direction === 'left' ? 'next' : 'prev'
+    const type = direction === 'left' ? 'next' : 'prev'
     $to.setAttribute('class', `carousel-panel ${type}`)
     fromClass = `carousel-panel active ${direction}`
     toClass = `carousel-panel ${type} ${direction}`
