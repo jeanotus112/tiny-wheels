@@ -119,7 +119,9 @@ new Tabs({
 - [x] Pager-分页
 - [x] Carousel-走马灯
 - [ ] Calendar-日历
+- [ ] Tree-树形控件
 - [ ] 单元测试
+- [ ] TypeScript重构
 
 持续施工中...
 
