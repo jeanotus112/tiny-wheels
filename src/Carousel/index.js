@@ -17,6 +17,7 @@ class Carousel {
 
   initCarousel () {
     this.timer = null
+    this.duration = 400
     this.initCarouselContainer()
     this.initCarouselPanels()
     this.initCarouselArrows()
@@ -35,6 +36,7 @@ class Carousel {
     const $panelContainer = document.createElement('div')
     $panelContainer.setAttribute('class', 'carousel-panels')
     this.$$panels.forEach($panel => {
+      // $panel.style.transitionDuration = `${this.duration}ms`
       $panelContainer.appendChild($panel)
     })
     this.$container.appendChild($panelContainer)
@@ -96,7 +98,6 @@ class Carousel {
   bindCarouselContainer () {
     if (this.options.autoplay) {
       this.$container.addEventListener('mouseenter', () => {
-        console.log(this.isAnimate)
         this.pauseCarousel()
       })
       this.$container.addEventListener('mouseleave', () => {
@@ -134,64 +135,32 @@ class Carousel {
 
   setCarouselPanel ($from, $to, direction) {
     this.isAnimate = true
-    // this.resetCarouselPanel($from, $to, direction)
-    // setTimeout(() => {
-    //   this.moveCarouselPanel($from, $to, direction)
-    // })
+    window.requestAnimationFrame(() => {
+      const { fromClass, toClass } = this.resetCarouselPanel($to, direction)
+      window.requestAnimationFrame(() => {
+        this.moveCarouselPanel(fromClass, toClass, $from, $to)
+      })
+    })
+  }
 
+  resetCarouselPanel ($to, direction) {
     let fromClass = ''
     let toClass = ''
-    if (direction === 'right') {
-      $to.setAttribute('class', 'carousel-panel prev')
-      fromClass = 'carousel-panel active right'
-      toClass = 'carousel-panel prev right'
-    } else if (direction === 'left') {
-      $to.setAttribute('class', 'carousel-panel next')
-      fromClass = 'carousel-panel active left'
-      toClass = 'carousel-panel next left'
-    }
-    setTimeout(() => {
-      $from.setAttribute('class', fromClass)
-      $to.setAttribute('class', toClass)
-    }, 0);
+    let type = direction === 'left' ? 'next' : 'prev'
+    $to.setAttribute('class', `carousel-panel ${type}`)
+    fromClass = `carousel-panel active ${direction}`
+    toClass = `carousel-panel ${type} ${direction}`
+    return { fromClass, toClass }
+  }
+
+  moveCarouselPanel (fromClass, toClass, $from, $to) {
+    $from.setAttribute('class', fromClass)
+    $to.setAttribute('class', toClass)
     setTimeout(() => {
       $from.setAttribute('class', 'carousel-panel')
       $to.setAttribute('class', 'carousel-panel active')
       this.isAnimate = false
-    }, 400);
-  }
-
-  resetCarouselPanel ($from, $to, direction) {
-    // $from.style = ''
-    //   $to.style = ''
-      // $from.classList.toggle('active')
-      // $to.classList.toggle('active')
-    Object.assign($from.style, {
-      transform: `translateX(0)`,
-      zIndex: 1
-    })
-    Object.assign($to.style, {
-      transform: `translateX(${direction === 'right' ? '-' : ''}100%)`,
-      zIndex: 1
-    })
-  }
-
-  moveCarouselPanel ($from, $to, direction) {
-    Object.assign($from.style, {
-      transform: `translateX(${direction === 'left' ? '-' : ''}100%)`,
-      transition: `all .4s`
-    })
-    Object.assign($to.style, {
-      transform: `translateX(0)`,
-      transition: `all .4s`
-    })
-    setTimeout(() => {
-      $from.style = ''
-      $to.style = ''
-      $from.classList.toggle('active')
-      $to.classList.toggle('active')
-      this.isAnimate = false
-    }, 400)
+    }, this.duration)
   }
 
   setCarouselDot (index) {

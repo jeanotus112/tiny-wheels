@@ -36,6 +36,6 @@ new Carousel({
   element: document.querySelector('.carousel'),
   height: '200px',
   index: 1,
-  interval: 1000,
+  interval: 2000,
   autoplay: true
 })
