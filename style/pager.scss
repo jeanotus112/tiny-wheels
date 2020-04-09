@@ -19,11 +19,12 @@
     cursor: pointer;
     user-select: none;
     margin-right: 8px;
+  }
+  .pager-prev,
+  .pager-item,
+  .pager-next {
     &:hover {
       border-color: #666;
-    }
-    &:last-child {
-      margin-right: 0;
     }
   }
   .pager-prev,
@@ -41,9 +42,11 @@
       border-color: #666;
     }
   }
+  .pager-next {
+    margin-right: 0;
+  }
   .pager-more {
-    width: auto;
-    border: none;
+    border-color: transparent;
     cursor: default;
   }
 }
