@@ -19,27 +19,34 @@ class Carousel {
     this.timer = null
     this.duration = 400
     this.initCarouselContainer()
-    this.initCarouselPanels()
+    this.initCarouselPanelsAndDots()
     this.initCarouselArrows()
-    this.initCarouselDots()
   }
 
   initCarouselContainer () {
     this.$container = this.options.element
     this.$container.classList.add('tiny-carousel')
     this.$container.style.height = this.options.height
-  }
-
-  initCarouselPanels () {
-    this.$$panels = this.$container.querySelectorAll('.carousel-panel')
-    this.$$panels[this.options.index].classList.add('active')
     const $panelContainer = document.createElement('div')
     $panelContainer.setAttribute('class', 'carousel-panels')
+    this.$panelContainer = $panelContainer
+    const $dotsContainer = document.createElement('ul')
+    $dotsContainer.setAttribute('class', 'carousel-dots')
+    this.$dotsContainer = $dotsContainer
+  }
+
+  initCarouselPanelsAndDots () {
+    this.$$panels = this.$container.querySelectorAll('.carousel-panel')
+    this.$$panels[this.options.index].classList.add('active')
     this.$$panels.forEach($panel => {
       // $panel.style.transitionDuration = `${this.duration}ms`
-      $panelContainer.appendChild($panel)
+      this.$panelContainer.appendChild($panel)
+      this.$dotsContainer.appendChild(this.initCarouselDot())
     })
-    this.$container.appendChild($panelContainer)
+    this.$container.appendChild(this.$panelContainer)
+    this.$container.appendChild(this.$dotsContainer)
+    this.$$dots = this.$container.querySelectorAll('.carousel-dot')
+    this.$$dots[this.options.index].classList.add('active')
   }
 
   initCarouselArrows () {
@@ -54,17 +61,10 @@ class Carousel {
     this.$container.appendChild($arrowContainer)
   }
 
-  initCarouselDots () {
-    const $dotsContainer = document.createElement('ul')
-    $dotsContainer.setAttribute('class', 'carousel-dots')
-    this.$$panels.forEach($panel => {
-      const $dot = document.createElement('li')
-      $dot.setAttribute('class', 'carousel-dot')
-      $dotsContainer.appendChild($dot)
-    })
-    this.$container.appendChild($dotsContainer)
-    this.$$dots = this.$container.querySelectorAll('.carousel-dot')
-    this.$$dots[this.options.index].classList.add('active')
+  initCarouselDot () {
+    const $dot = document.createElement('li')
+    $dot.setAttribute('class', 'carousel-dot')
+    return $dot
   }
 
   bindCarousel () {
