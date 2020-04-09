@@ -1,6 +1,6 @@
 {
   "name": "tiny-wheels",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "tiny-wheels is a set of components made by vanilla javascript",
   "main": "dist/index.js",
   "scripts": {

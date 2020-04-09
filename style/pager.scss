@@ -1,6 +1,7 @@
 .tiny-pager {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   .pager-prev,
   .pager-item,
   .pager-more,
@@ -9,6 +10,7 @@
     align-items: center;
     justify-content: center;
     width: 32px;
+    min-width: 32px;
     height: 32px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -16,12 +18,9 @@
     color: #666;
     cursor: pointer;
     user-select: none;
-    margin: 0 8px;
+    margin-right: 8px;
     &:hover {
       border-color: #666;
-    }
-    &:first-child {
-      margin-left: 0;
     }
     &:last-child {
       margin-right: 0;
