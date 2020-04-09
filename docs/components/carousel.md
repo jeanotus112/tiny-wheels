@@ -38,6 +38,16 @@ new Carousel({
 })
 ```
 
+## 图片轮播
+
+### 效果
+
+<ClientOnly><carousel-demo-2></carousel-demo-2></ClientOnly>
+
+### 配置
+
+如果需要展示图片
+
 ## 参数
 
 `Carousel`组件构造函数的参数是一个对象，该对象接收五个属性作为配置：
