@@ -5,14 +5,11 @@
       border-bottom: 1px solid #ddd;
     }
     &.active {
+      margin-bottom: 16px;
       .collapse-header {
         &::after {
           transform: rotate(135deg);
         }
-      }
-      .collapse-panel {
-        height: auto;
-        padding-bottom: 16px;
       }
     }
   }
@@ -40,7 +37,6 @@
   .collapse-panel {
     font-size: 14px;
     color: #666;
-    height: 0;
     overflow: hidden;
     transition: all 0.3s;
   }

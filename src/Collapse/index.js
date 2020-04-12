@@ -51,37 +51,65 @@ class Collapse {
 
   setCollapseItem () {
     let collapseKeys = this.$container.dataset.collapseActive
+    this.panelsHeight = []
     if (collapseKeys) {
       collapseKeys = collapseKeys.split(',')
       this.$$collapsePanels.forEach(($panel, index) => {
+        this.panelsHeight.push($panel.offsetHeight)
         if (collapseKeys.indexOf($panel.dataset.collapseKey) !== -1) {
           this.$$collapseItems[index].classList.add('active')
+          $panel.style.height = `${$panel.offsetHeight}px`
+        } else {
+          $panel.style.height = '0px'
         }
       })
     }
   }
 
   bindCollapse () {
-    this.$$collapseItems.forEach(($bindItem, index) => {
-      $bindItem.addEventListener('click', () => {
+    this.bindCollapseItems()
+    this.bindCollapsePanels()
+  }
+
+  bindCollapseItems () {
+    this.$$collapseItems.forEach(($item, index) => {
+      $item.addEventListener('click', () => {
         if (this.options.accordion) {
-          this.$$collapseItems.forEach($item => {
-            if ($item !== $bindItem) {
-              $item.classList.remove('active')
-            }
-          })
+          this.clearCollapse($item)
         }
-        $bindItem.classList.toggle('active')
+        this.toggleCollapse($item, index)
         const collapseKey = this.$$collapsePanels[index].dataset.collapseKey
         const collapseActiveKeys = this.getCollapseActiveKeys()
-        this.options.callback.call(null, $bindItem, collapseKey, collapseActiveKeys)
+        this.options.callback.call(null, $item, collapseKey, collapseActiveKeys)
       })
     })
+  }
+
+  bindCollapsePanels () {
     this.$$collapsePanels.forEach($panel => {
       $panel.addEventListener('click', (e) => {
         e.stopPropagation()
       })
     })
+  }
+
+  clearCollapse ($bindItem) {
+    this.$$collapseItems.forEach(($item, index) => {
+      if ($item !== $bindItem) {
+        $item.classList.remove('active')
+        this.$$collapsePanels[index].style.height = '0px'
+      }
+    })
+  }
+
+  toggleCollapse ($bindItem, index) {
+    if ($bindItem.classList.contains('active')) {
+      $bindItem.classList.remove('active')
+      this.$$collapsePanels[index].style.height = '0px'
+    } else {
+      $bindItem.classList.add('active')
+      this.$$collapsePanels[index].style.height = `${this.panelsHeight[index]}px`
+    }
   }
 
   getCollapseActiveKeys () {
