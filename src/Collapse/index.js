@@ -77,6 +77,11 @@ class Collapse {
         this.options.callback.call(null, $bindItem, collapseKey, collapseActiveKeys)
       })
     })
+    this.$$collapsePanels.forEach($panel => {
+      $panel.addEventListener('click', (e) => {
+        e.stopPropagation()
+      })
+    })
   }
 
   getCollapseActiveKeys () {
