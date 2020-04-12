@@ -137,30 +137,21 @@ class Carousel {
 
   setCarouselPanel ($from, $to, direction) {
     this.isAnimate = true
-    window.requestAnimationFrame(() => {
-      const { fromClass, toClass } = this.resetCarouselPanel($to, direction)
-      window.requestAnimationFrame(() => {
-        this.moveCarouselPanel(fromClass, toClass, $from, $to)
-      })
-    })
+    this.resetCarouselPanel($to, direction)
+    this.moveCarouselPanel(direction, $from, $to)
   }
 
   resetCarouselPanel ($to, direction) {
-    let fromClass = ''
-    let toClass = ''
     const type = direction === 'left' ? 'next' : 'prev'
     $to.setAttribute('class', `carousel-panel ${type}`)
-    fromClass = `carousel-panel active ${direction}`
-    toClass = `carousel-panel ${type} ${direction}`
-    return { fromClass, toClass }
+    this.$panelContainer.classList.add(`${direction}`)
   }
 
-  moveCarouselPanel (fromClass, toClass, $from, $to) {
-    $from.setAttribute('class', fromClass)
-    $to.setAttribute('class', toClass)
+  moveCarouselPanel (direction, $from, $to) {
     setTimeout(() => {
       $from.setAttribute('class', 'carousel-panel')
       $to.setAttribute('class', 'carousel-panel active')
+      this.$panelContainer.classList.remove(`${direction}`)
       this.isAnimate = false
     }, this.duration)
   }
