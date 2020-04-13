@@ -38,6 +38,7 @@
     color: #666;
     overflow: hidden;
     padding-bottom: 16px;
+    box-sizing: border-box;
     &.animate {
       transition: all 0.3s;
     }
