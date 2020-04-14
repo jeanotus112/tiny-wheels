@@ -71,7 +71,7 @@ class Collapse {
     this.$$collapsePanels.forEach(($panel, index) => {
       this.panelsHeight.push($panel.offsetHeight)
       if (this.$$collapseItems[index].classList.contains('active')) {
-        $panel.style.height = `${$panel.offsetHeight}px`
+        mergeStyle($panel, { height: `${$panel.offsetHeight}px` })
       } else {
         mergeStyle($panel, { height: '0', paddingBottom: '0' })
       }
@@ -118,15 +118,13 @@ class Collapse {
   }
 
   toggleCollapse ($bindItem, index) {
+    const $panel = this.$$collapsePanels[index]
     if ($bindItem.classList.contains('active')) {
       $bindItem.classList.remove('active')
-      mergeStyle(this.$$collapsePanels[index], { height: '0', paddingBottom: '0' })
+      mergeStyle($panel, { height: '0', paddingBottom: '0' })
     } else {
       $bindItem.classList.add('active')
-      this.$$collapsePanels[index].style = ''
-      this.$$collapsePanels[
-        index
-      ].style.height = `${this.panelsHeight[index]}px`
+      mergeStyle($panel, { height: `${this.panelsHeight[index]}px`, paddingBottom: '' })
     }
   }
 
