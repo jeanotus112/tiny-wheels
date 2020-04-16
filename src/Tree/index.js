@@ -1,8 +1,19 @@
-import "../../style/tree.scss";
+import '../../style/tree.scss'
 
 class Tree {
-  constructor($container) {
-    this.$container = $container;
+  constructor ($container, data) {
+    this.$container = $container
+    this.tree = data
+  }
+
+  travelTree (node, fn) {
+    if (!node.children) {
+      return
+    }
+    fn(node)
+    for (let i = 0; i < node.children.length; i++) {
+      this.travelTree(node.children[i], fn)
+    }
   }
 }
 

@@ -2,6 +2,7 @@ import Tabs from './Tabs'
 import Collapse from './Collapse'
 import Pager from './Pager'
 import Carousel from './Carousel'
+import Tree from './Tree'
 
 // const pager = new Pager(document.querySelector('.pager'))
 // console.log(pager.$container)
@@ -36,6 +37,8 @@ new Carousel({
   element: document.querySelector('.carousel'),
   height: '200px',
   index: 1,
-  interval: 2000,
+  interval: 3000,
   autoplay: true
 })
+
+new Tree()
