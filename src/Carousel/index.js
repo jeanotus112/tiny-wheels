@@ -17,7 +17,6 @@ class Carousel {
 
   initCarousel () {
     this.timer = null
-    this.duration = 400
     this.initCarouselContainer()
     this.initCarouselPanelsAndDots()
     this.initCarouselArrows()
@@ -71,6 +70,7 @@ class Carousel {
     this.bindCarouselArrow()
     this.bindCarouselDots()
     this.bindCarouselContainer()
+    this.bindPanelContainer()
   }
 
   bindCarouselArrow () {
@@ -108,14 +108,17 @@ class Carousel {
     }
   }
 
+  bindPanelContainer () {
+    this.$panelContainer.addEventListener('transitionend', this.resetCarouselPanel.bind(this), false)
+  }
+
   setCarousel (fromIndex, toIndex, direction) {
     if (!this.isAnimate) {
+      this.$from = this.$$panels[fromIndex]
+      this.$to = this.$$panels[toIndex]
+      this.direction = direction
       this.setCarouselDot(toIndex)
-      this.setCarouselPanel(
-        this.$$panels[fromIndex],
-        this.$$panels[toIndex],
-        direction
-      )
+      this.setCarouselPanel()
     }
   }
 
@@ -135,25 +138,22 @@ class Carousel {
     return (this.getCurrentIndex() + 1) % this.$$dots.length
   }
 
-  setCarouselPanel ($from, $to, direction) {
+  setCarouselPanel () {
     this.isAnimate = true
-    this.resetCarouselPanel($to, direction)
-    this.moveCarouselPanel(direction, $from, $to)
+    this.moveCarouselPanel()
   }
 
-  resetCarouselPanel ($to, direction) {
-    const type = direction === 'left' ? 'next' : 'prev'
-    $to.setAttribute('class', `carousel-panel ${type}`)
-    this.$panelContainer.classList.add(`${direction}`)
+  moveCarouselPanel () {
+    const type = this.direction === 'left' ? 'next' : 'prev'
+    this.$to.setAttribute('class', `carousel-panel ${type}`)
+    this.$panelContainer.classList.add(`${this.direction}`)
   }
 
-  moveCarouselPanel (direction, $from, $to) {
-    setTimeout(() => {
-      $from.setAttribute('class', 'carousel-panel')
-      $to.setAttribute('class', 'carousel-panel active')
-      this.$panelContainer.classList.remove(`${direction}`)
-      this.isAnimate = false
-    }, this.duration)
+  resetCarouselPanel () {
+    this.$from.setAttribute('class', 'carousel-panel')
+    this.$to.setAttribute('class', 'carousel-panel active')
+    this.$panelContainer.classList.remove(`${this.direction}`)
+    this.isAnimate = false
   }
 
   setCarouselDot (index) {
