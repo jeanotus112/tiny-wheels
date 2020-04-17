@@ -88,14 +88,15 @@ class Tree {
         setTimeout(() => {
           $children.style.height = '0'
         })
-      } else {
-        setTimeout(() => {
-          $children.style = ''
-        }, 200);
       }
       node.expand = !node.expand
       this.options.toggle.call(null, node)
     })
+    $children.addEventListener('transitionend', () => {
+      if (node.expand) {
+        $children.style = ''
+      }
+    }, false)
   }
 
   travelTree (node, fn) {
