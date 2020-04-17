@@ -6,6 +6,8 @@ import Carousel from './Carousel'
 import Tree from './Tree'
 import treeDatas from './data'
 
+import '../asset/iconfont/iconfont.css'
+
 // const pager = new Pager(document.querySelector('.pager'))
 // console.log(pager.$container)
 
