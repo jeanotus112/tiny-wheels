@@ -45,4 +45,10 @@ new Carousel({
   autoplay: true
 })
 
-new Tree(null, treeDatas)
+new Tree({
+  element: document.querySelector('.tree'),
+  data: treeDatas,
+  toggle: node => {
+    console.log(node)
+  }
+})

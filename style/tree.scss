@@ -6,30 +6,19 @@
       display: flex;
       align-items: center;
       .node-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 12px;
-        height: 20px;
-        // line-height: 20px;
+        height: 12px;
         margin-right: 6px;
-        text-align: center;
         cursor: pointer;
-        &::before {
-          content: "";
-          display: block;
-          width: 6px;
-          height: 6px;
-          border-top: 1px solid #333;
-          border-right: 1px solid #333;
-          transition: all 0.2s;
+        &.hide {
+          visibility: hidden;
         }
         &.open {
-          &::before {
-            transform: rotate(135deg);
-          }
-        }
-        &.close {
-          &::before {
-            transform: rotate(45deg);
-          }
+          transform: rotate(90deg);
+          transition: all 0.2s;
         }
       }
       .node-title {
@@ -40,6 +29,8 @@
     }
     .node-children {
       padding-left: 18px;
+      overflow: hidden;
+      transition: all 0.2s;
     }
   }
 }
