@@ -4,7 +4,8 @@ export default [
     expand: true,
     children: [
       {
-        title: '标题-2'
+        title: '标题-2',
+        selected: true
       },
       {
         title: '标题-3',

@@ -5,7 +5,9 @@ class Tree {
     const defaultOptions = {
       element: null,
       data: [],
-      toggle: () => {}
+      multiple: false,
+      toggle: () => {},
+      select: () => {}
     }
     this.options = Object.assign({}, defaultOptions, options)
     this.$container = this.options.element
@@ -18,13 +20,17 @@ class Tree {
   }
 
   initTree () {
+    this.nodeIndex = 0
     for (let index = 0; index < this.tree.length; index++) {
       this.initTreeNode(this.tree[index])
     }
   }
 
   initTreeNode (node) {
-    const { $node, $arrow } = this.getTreeNode(node)
+    node.key = this.nodeIndex
+    this.nodeIndex++
+    const { $title, $node, $arrow } = this.getTreeNode(node)
+    this.bindTitle($title, node)
     if (!node.children) {
       return $node
     }
@@ -42,11 +48,11 @@ class Tree {
     const $nodeContent = document.createElement('div')
     $nodeContent.setAttribute('class', 'node-content')
     const $arrow = this.getNodeArrow(node)
-    const $title = this.getNodeTitle(node.title)
+    const $title = this.getNodeTitle(node)
     $nodeContent.appendChild($arrow)
     $nodeContent.appendChild($title)
     $node.appendChild($nodeContent)
-    return { $node, $arrow }
+    return { $title, $node, $arrow }
   }
 
   getNodeChildren (node) {
@@ -73,10 +79,11 @@ class Tree {
     return $arrow
   }
 
-  getNodeTitle (title) {
+  getNodeTitle (node) {
     const $title = document.createElement('span')
-    $title.setAttribute('class', 'node-title')
-    $title.innerText = title
+    const titleClass = node.selected ? 'selected' : ''
+    $title.setAttribute('class', `node-title ${titleClass}`)
+    $title.innerText = node.title
     return $title
   }
 
@@ -99,6 +106,33 @@ class Tree {
       }
     })
     this.bindChildren($children, node)
+  }
+
+  bindTitle ($title, selectedNode) {
+    $title.addEventListener('click', () => {
+      this.travelTree((node, $node) => {
+        if (node.key === selectedNode.key) {
+          node.selected = !node.selected
+          $node.children[0].children[1].classList.toggle('selected')
+        } else {
+          if (!this.options.multiple) {
+            node.selected = false
+            $node.children[0].children[1].classList.remove('selected')
+          }
+        }
+      })
+      this.options.select.call(null, this.getSelectedNodes(), selectedNode)
+    })
+  }
+
+  getSelectedNodes () {
+    const selectNodes = []
+    this.travelTree((node) => {
+      if (node.selected) {
+        selectNodes.push(node)
+      }
+    })
+    return selectNodes
   }
 
   setChildren ($children, node) {
@@ -129,15 +163,21 @@ class Tree {
     $children.addEventListener('transitionend', afterTransition)
   }
 
-  // travelTree (node, fn) {
-  //   fn(node)
-  //   if (!node.children) {
-  //     return
-  //   }
-  //   for (let i = 0; i < node.children.length; i++) {
-  //     this.travelTree(node.children[i], fn)
-  //   }
-  // }
+  travelTree (fn) {
+    for (let index = 0; index < this.tree.length; index++) {
+      this.travelTreeNode(this.tree[index], this.$container.children[index], fn)
+    }
+  }
+
+  travelTreeNode (node, $node, fn) {
+    fn(node, $node)
+    if (!node.children) {
+      return
+    }
+    for (let i = 0; i < node.children.length; i++) {
+      this.travelTreeNode(node.children[i], $node.children[1].children[i], fn)
+    }
+  }
 }
 
 export default Tree

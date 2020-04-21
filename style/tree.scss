@@ -25,6 +25,14 @@
         line-height: 20px;
         color: #333;
         cursor: pointer;
+        padding: 0 4px;
+        border-radius: 3px;
+        &:hover {
+          background-color: #eee;
+        }
+        &.selected {
+          background-color: #ddd;
+        }
       }
     }
     .node-children {

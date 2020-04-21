@@ -48,7 +48,11 @@ new Carousel({
 new Tree({
   element: document.querySelector('.tree'),
   data: treeDatas,
+  multiple: true,
   toggle: node => {
     console.log(node)
+  },
+  select: (nodes, node) => {
+    console.log(nodes, node)
   }
 })
