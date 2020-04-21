@@ -8,18 +8,53 @@ export default [
       },
       {
         title: '标题-3',
-        expand: false,
         children: [
           {
             title: '标题-4'
           },
           {
-            title: '标题-5'
+            title: '标题-5',
+            children: [
+              {
+                title: '标题-6'
+              },
+              {
+                title: '标题-7',
+                
+              }
+            ]
           }
         ]
       },
       {
-        title: '标题-6'
+        title: '标题-8',
+        children: [
+          {
+            title: '标题-9'
+          },
+          {
+            title: '标题-10',
+            children: [
+              {
+                title: '标题-11',
+                children: [
+                  {
+                    title: '标题-12'
+                  }
+                ]
+              },
+              {
+                title: '标题-13',
+              },
+              {
+                title: '标题-14',
+              },
+            ]
+          },
+          {
+            title: '标题-15',
+          },
+        ]
       }
     ]
   }

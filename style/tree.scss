@@ -13,12 +13,12 @@
         height: 12px;
         margin-right: 6px;
         cursor: pointer;
+        transition: all 0.2s;
         &.hide {
           visibility: hidden;
         }
         &.open {
           transform: rotate(90deg);
-          transition: all 0.2s;
         }
       }
       .node-title {

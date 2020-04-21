@@ -11,15 +11,19 @@ class Tree {
     this.$container = this.options.element
     this.$container.classList.add('tiny-tree')
     this.tree = this.options.data
-    for (let index = 0; index < this.tree.length; index++) {
-      this.initTree(this.tree[index])
-    }
+    this.initTree()
     // this.travelTree(this.tree[0], (node) => {
     //   console.log(node)
     // })
   }
 
-  initTree (node) {
+  initTree () {
+    for (let index = 0; index < this.tree.length; index++) {
+      this.initTreeNode(this.tree[index])
+    }
+  }
+
+  initTreeNode (node) {
     const { $node, $arrow } = this.getTreeNode(node)
     if (!node.children) {
       return $node
@@ -27,7 +31,8 @@ class Tree {
     const $children = this.getNodeChildren(node)
     $node.appendChild($children)
     this.$container.appendChild($node)
-    this.setNode($arrow, $children, node)
+    this.setTree($children, node)
+    this.bindArrow($arrow, $children, node)
     return $node
   }
 
@@ -48,7 +53,7 @@ class Tree {
     const $children = document.createElement('div')
     $children.setAttribute('class', 'node-children')
     for (let i = 0; i < node.children.length; i++) {
-      const $node = this.initTree(node.children[i])
+      const $node = this.initTreeNode(node.children[i])
       $children.appendChild($node)
     }
     return $children
@@ -74,40 +79,65 @@ class Tree {
     $title.innerText = title
     return $title
   }
-  
-  setNode ($arrow, $children, node) {
-    let height = $children.offsetHeight
+
+  setTree ($children, node) {
     if (!node.expand) {
-      $children.style.height = '0'
+      $children.style.display = 'none'
     }
-    $arrow.addEventListener('click', () => {
-      height = $children.offsetHeight ? $children.offsetHeight : height
-      $children.style.height = `${height}px`
-      $arrow.classList.toggle('open')
-      if (node.expand) {
-        setTimeout(() => {
-          $children.style.height = '0'
-        })
-      }
-      node.expand = !node.expand
-      this.options.toggle.call(null, node)
-    })
-    $children.addEventListener('transitionend', () => {
-      if (node.expand) {
-        $children.style = ''
-      }
-    }, false)
   }
 
-  travelTree (node, fn) {
-    fn(node)
-    if (!node.children) {
-      return
-    }
-    for (let i = 0; i < node.children.length; i++) {
-      this.travelTree(node.children[i], fn)
+  bindArrow ($arrow, $children, node) {
+    this.isAnimate = false
+    $arrow.addEventListener('click', () => {
+      if (!this.isAnimate) {
+        this.isAnimate = true
+        $arrow.classList.toggle('open')
+        this.setChildren($children, node)
+        node.expand = !node.expand
+        this.options.toggle.call(null, node)
+        // this.bindChildren($children, node)
+      }
+    })
+    this.bindChildren($children, node)
+  }
+
+  setChildren ($children, node) {
+    if (node.expand) {
+      $children.style.height = `${$children.offsetHeight}px`
+      setTimeout(() => {
+        $children.style.height = '0'
+      })
+    } else {
+      $children.style.display = ''
+      const height = $children.offsetHeight
+      $children.style.height = '0'
+      setTimeout(() => {
+        $children.style.height = `${height}px`
+      })
     }
   }
+
+  bindChildren ($children, node) {
+    const afterTransition = () => {
+      if (!node.expand) {
+        $children.style.display = 'none'
+      }
+      $children.style.height = ''
+      // $children.removeEventListener('transitionend', afterTransition)
+      this.isAnimate = false
+    }
+    $children.addEventListener('transitionend', afterTransition)
+  }
+
+  // travelTree (node, fn) {
+  //   fn(node)
+  //   if (!node.children) {
+  //     return
+  //   }
+  //   for (let i = 0; i < node.children.length; i++) {
+  //     this.travelTree(node.children[i], fn)
+  //   }
+  // }
 }
 
 export default Tree
