@@ -5,6 +5,7 @@ import Carousel from './Carousel'
 
 import Tree from './Tree'
 import treeDatas from './data'
+import InfiniteScroll from './InfiniteScroll'
 
 import '../asset/iconfont/iconfont.css'
 
@@ -54,5 +55,13 @@ new Tree({
   },
   select: (nodes, node) => {
     console.log(nodes, node)
+  }
+})
+
+new InfiniteScroll({
+  container: document.querySelector('.lazy-load-container'),
+  enableLazyLoad: false,
+  callback: () => {
+    console.log('enter here')
   }
 })
