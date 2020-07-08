@@ -15,7 +15,7 @@ export default class InfiniteScroll {
   }
 
   init() {
-    const { container } = this
+    const {container} = this
     if (!container) return
     this.elClientHeight = container.clientHeight
     this.imgs = container.querySelectorAll('img')
@@ -26,31 +26,27 @@ export default class InfiniteScroll {
 
   handleScroll() {
     const {
-      container:cEl,
+      container: cEl,
       elClientHeight,
       loadDistance,
-      callback,
       enableLazyLoad,
       imgs,
-      imgNum,
       imgCount
     } = this
 
-    console.log(this)
     if (cEl.scrollHeight - cEl.scrollTop - loadDistance <= elClientHeight) {
       if (enableLazyLoad) {
-        for (let i=imgCount; i<imgNum; i++) {
+        for (let i = imgCount; i < this.imgNum; i++) {
           if (imgs[i].offsetTop < elClientHeight + cEl.scrollTop) {
-            if (imgs[i].getAttribute("src") === "default.jpg") {
-              imgs[i].src = imgs[i].getAttribute("data-src");
+            if (imgs[i].getAttribute('src') === 'default.jpg') {
+              imgs[i].src = imgs[i].getAttribute('data-src')
             }
-            n = i + 1;
+            this.imgNum = i + 1
           }
         }
       }
-      callback()
+      this.callback()
     }
   }
-
 
 }
