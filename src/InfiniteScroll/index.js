@@ -12,6 +12,11 @@ export default class InfiniteScroll {
   constructor(options) {
     Object.assign(this, options)
     this.init()
+    if (this.immediate) {
+      const observer = new MutationObserver(this.handleScroll.bind(this))
+      observer.observe(this.container, { childList: true, subtree: true })
+      this.handleScroll()
+    }
   }
 
   init() {
@@ -30,13 +35,12 @@ export default class InfiniteScroll {
       elClientHeight,
       loadDistance,
       enableLazyLoad,
-      imgs,
-      imgCount
+      imgs
     } = this
 
     if (cEl.scrollHeight - cEl.scrollTop - loadDistance <= elClientHeight) {
       if (enableLazyLoad) {
-        for (let i = imgCount; i < this.imgNum; i++) {
+        for (let i = this.imgCount; i < this.imgNum; i++) {
           if (imgs[i].offsetTop < elClientHeight + cEl.scrollTop) {
             if (imgs[i].getAttribute('src') === 'default.jpg') {
               imgs[i].src = imgs[i].getAttribute('data-src')
