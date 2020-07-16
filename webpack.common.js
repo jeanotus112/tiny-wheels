@@ -33,6 +33,19 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(jpg|png|gif|bmp|jpeg)$/,
+        include: path.resolve(__dirname, 'src'),
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: '[name]-[hash:8].[ext]'
+            }
+          }
+        ]
       }
     ]
   }

@@ -58,7 +58,7 @@ new Tree({
   }
 })
 
-const scrollCt = document.querySelector('.lazy-load-container')
+const scrollCt = document.querySelectorAll('.lazy-load-container')
 let originData = [1, 2, 3]
 
 const fetchData = () => {
@@ -78,16 +78,22 @@ const fetchData = () => {
         li.append(h2)
         fragment.appendChild(li)
       })
-      scrollCt.appendChild(fragment)
+      scrollCt[0].appendChild(fragment)
     }
   )
 }
 
 new InfiniteScroll({
-  container: scrollCt,
+  container: scrollCt[0],
   enableLazyLoad: false,
   immediate: true,
   callback: fetchData
+})
+
+new InfiniteScroll({
+  container: scrollCt[1],
+  enableLazyLoad: true,
+  // placeholder: '../asset/placeholder.jpg'
 })
 
 
