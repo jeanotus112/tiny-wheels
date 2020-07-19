@@ -68,18 +68,18 @@ const fetchData = () => {
       resolve(res)
     }, 400)
   }).then(res => {
-      const fragment = document.createDocumentFragment()
-      res.forEach((num, i) => {
-        originData[i] = num + 3
+    const fragment = document.createDocumentFragment()
+    res.forEach((num, i) => {
+      originData[i] = num + 3
 
-        const li = document.createElement('li')
-        const h2 = document.createElement('h2')
-        h2.innerText = `${num}`
-        li.append(h2)
-        fragment.appendChild(li)
-      })
-      scrollCt[0].appendChild(fragment)
-    }
+      const li = document.createElement('li')
+      const h2 = document.createElement('h2')
+      h2.innerText = `${num}`
+      li.append(h2)
+      fragment.appendChild(li)
+    })
+    scrollCt[0].appendChild(fragment)
+  }
   )
 }
 
@@ -93,7 +93,8 @@ new InfiniteScroll({
 new InfiniteScroll({
   container: scrollCt[1],
   enableLazyLoad: true,
-  // placeholder: '../asset/placeholder.jpg'
+  placeholder: require('../asset/placeholder.jpg'),
+  immediate: true
 })
 
 

@@ -1,3 +1,6 @@
+import { throttle } from '../../utils/debounce.js'
+const path = require('path')
+
 export default class InfiniteScroll {
   container
   elClientHeight
@@ -21,21 +24,25 @@ export default class InfiniteScroll {
   }
 
   init() {
-    const {container} = this
+    const { container } = this
     if (!container) return
+    const cElPosition = window.getComputedStyle(this.container).position
+    if (cElPosition === 'static') {
+      this.container.style.position = 'relative'
+    }
     this.elClientHeight = container.clientHeight
     this.imgs = container.querySelectorAll('img')
     this.imgNum = this.imgs.length
+    const onScroll = throttle(this.handleScroll)
 
     if (this.enableLazyLoad) {
       this.imgs.forEach(img => {
-        const imgUrl= img.getAttribute('src')
+        const imgUrl = img.getAttribute('src')
         img.setAttribute('data-src', imgUrl)
-        img.src = 'https://lh3.googleusercontent.com/ogw/ADGmqu-WeMgLWJ9CyfxbeKu2QWW2T7Lmt7Kqre9e0qPL=s128-b16-cc-rp-mo'
-        // img.src = require('../../asset/placeholder.jpg')
+        img.src = this.placeholder
       })
     }
-    container.addEventListener('scroll', this.handleScroll.bind(this))
+    container.addEventListener('scroll', onScroll.bind(this))
   }
 
   handleScroll() {
@@ -47,12 +54,13 @@ export default class InfiniteScroll {
       imgs
     } = this
 
+    console.log(enableLazyLoad);
     if (cEl.scrollHeight - cEl.scrollTop - loadDistance <= elClientHeight) {
-      console.log('enter here')
-
       if (enableLazyLoad) {
+        console.log(imgs)
         for (let i = this.imgCount; i < this.imgNum; i++) {
           if (imgs[i].offsetTop < elClientHeight + cEl.scrollTop) {
+            console.log(imgs[i].offsetTop)
             imgs[i].src = imgs[i].getAttribute('data-src')
             imgs[i].removeAttribute('data-src')
             this.imgNum = i + 1
