@@ -1,0 +1,29 @@
+.tiny-calendar {
+  .head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .left {
+      min-width: 100px;
+    }
+  }
+  .week-title {
+    display: flex;
+    .week {
+      min-width: 50px;
+      flex-basis: 14%;
+      text-align: center;
+    }
+  }
+  .calendar-panel {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      min-width: 50px;
+      flex-basis: 14%;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+  }
+}
